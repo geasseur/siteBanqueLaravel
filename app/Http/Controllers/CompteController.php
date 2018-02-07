@@ -32,7 +32,7 @@ class CompteController extends Controller
       return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/indexComptes");
     }
     else {
-      $owner = DB::table('Comptes')->where('idUser',request('idUser'))->first()->owner;
+      $owner = DB::table('Utilisateurs')->where('id',request('idUser'))->first()->pseudo;
       dump($owner);
       Compte::create([
         'idUser'=>request('idUser'),
@@ -42,15 +42,10 @@ class CompteController extends Controller
       ]);
       return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/indexComptes");
     }
-    // $User = Utilisateur::where("pseudoCreation", request('pseudoConnexion'))->first();
-    // if ($User) {
-    //   return Redirect::to("/");
-    // }
-    // Utilisateur::create([
-    //   'pseudo'=>request('pseudoCreation'),
-    //   'password'=>request('passwordCreation'),
-    //   'mail'=>request('mail')
-    // ]);
   }
 
+  public function deleteAccount(){
+    $compte = DB::table('Comptes')->where('id', '=', request('idCompte'))->delete();
+    return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/indexComptes");
+  }
 }

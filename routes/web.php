@@ -25,3 +25,5 @@ Route::get('/indexComptes', 'CompteController@displayAccount');
 
 //Creation d'un nouveau compte par l'utilisateur
 Route::post('/indexComptes/creationCompte','CompteController@newAccount');
+//Effacer un compte
+Route::post('/effacerCompte','CompteController@deleteAccount');

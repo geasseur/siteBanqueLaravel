@@ -38,18 +38,14 @@
             <input type="text" class='d-none' name="idCompte" value="{{$compte->id}}">
             <input type="submit" class='btn' name="" value="detail compte">
           </form>
-          <form class="mt-2" action="" method="post">
+          <!-- Effacement du compte -->
+          <form class="mt-2" action="http://localhost:8888/siteBanqueLaravel/public/effacerCompte" method="post">
             {{csrf_field()}}
-            <input class='d-none' type="text" name="idCompte" value="{{$compte->id}}">
+            <input class='d-non' type="text" name="idCompte" value="{{$compte->id}}">
             <input type="submit" class='btn' name="" value="supprimer">
           </form>
         </article>
       @endforeach
-    @endif
-    @if(empty($comptes))
-      <section class='machin'>
-        <h2>pas de compte</h2>
-      </section>
     @endif
 </section>
 @stop
