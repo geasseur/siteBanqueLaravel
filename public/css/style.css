@@ -1,0 +1,7 @@
+.error{
+  position: relative;
+  margin: auto;
+  background-color: red;
+  padding: 30px;
+  width: 30%;
+}

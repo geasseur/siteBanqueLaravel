@@ -39,7 +39,7 @@ class UtilisateurController extends Controller
       $this->validate($request, ['passwordConnexion'=>'required'],['passwordConnexion.required'=>'rentrez votre mot de passe']);
       //récupération du mot de passe avec le pseudo donnée
       $testPassword = DB::table('Utilisateurs')->where('pseudo', request('pseudoConnexion'))->first();
-      dump($testPassword);
+      //dump($testPassword);
       if (!$testPassword) {
         Session::put('error','utilisateur inconnu');
         return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/");

@@ -21,9 +21,33 @@ Route::post('/testConnexion', 'UtilisateurController@Connexion');
 Route::post('/creationUser', 'UtilisateurController@createUser');
 
 //affichage de tous les comptes de l'utilisateur
-Route::get('/indexComptes', 'CompteController@displayAccount');
+Route::get('/indexComptes', 'CompteController@displayAccounts');
+
+//affichage de tous les comptes de l'utilisateur
+Route::post('/indexComptes', 'CompteController@displayAccounts');
 
 //Creation d'un nouveau compte par l'utilisateur
 Route::post('/indexComptes/creationCompte','CompteController@newAccount');
-//Effacer un compte
+//Effacer un compte depuis index
 Route::post('/effacerCompte','CompteController@deleteAccount');
+
+//Voir page Detail
+Route::post('/detailCompte','CompteController@displayAccount');
+
+//retour page detail
+Route::get('/detailCompte','CompteController@displayAccount');
+
+//Effacer compte depuis page detail
+Route::Post('/detailCompte/effacerCompte','CompteController@deleteAccount');
+
+//Ajouter Argent sur le compte courant
+Route::post('/detailCompte/ajoutArgent','CompteController@addMoney');
+
+//transferet argent à l'un de ses compte
+Route::post('/detailCompte/transfertSoi','CompteController@transfertMoney');
+
+// créer lien vers utilisateur
+Route::post('/detailCompte/linkAccount','CompteController@linkAccount');
+
+//transfert à un autre utilisateur
+Route::post('detailCompte/TransfertAutre','CompteController@transfertMoney');
