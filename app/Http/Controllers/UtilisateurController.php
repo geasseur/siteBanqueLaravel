@@ -12,8 +12,8 @@ class UtilisateurController extends Controller
 {
 
     public function createUser(Request $request){
-      $this->validate($request, ['pseudoCreation'=>'required'],['pseudoCreation.required'=>'il faut rentrer un nom']);
-      $this->validate($request, ['passwordCreation'=>'required'],['passwordCreation.required'=>'il faut rentrer un mot de passe']);
+      $this->validate($request, ['pseudoCreation'=>'required'],['pseudoCreation.required'=>'il faut rentrer un nom !']);
+      $this->validate($request, ['passwordCreation'=>'required'],['passwordCreation.required'=>'il faut rentrer un mot de passe !']);
       $this->validate($request, ['mailCreation'=> 'required|email'],['mailCreation.required'=>"tu n'as pas remplit ton mail", 'mailCreation.email' => "ce n'est pas une adresse mail"]);
       $User = DB::table('Utilisateurs')->where("pseudo", request('pseudoCreation'))->first();
 //      dump($User);

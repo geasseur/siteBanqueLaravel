@@ -10,6 +10,7 @@ Route::get('/', function(){
 Route::post('/', function(){
   if (session('pseudo')) {
     Session::forget('pseudo');
+    Session::forget('otherComptes');
   }
   return view('indexConnexion');
 });
