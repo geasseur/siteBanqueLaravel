@@ -1,12 +1,8 @@
 @extends('master')
 
 @section('header')
-<section class='d-flex justify-content-between align-items-center'>
-  <form class="d-flex flex-column justify-content-around align-items-center m-3 col-2" action="http://localhost:8888/siteBanqueLaravel/public/indexComptes/creationCompte" method="post">
-    @if(session('error'))
-      <p class='text-center'>{{session('error')}}</p>
-      <?php Session::forget('error');  ?>
-    @endif
+<section class='d-flex justify-content-between align-items-center flex-wrap col-10 m-auto'>
+  <form class="d-flex flex-column justify-content-around align-items-center m-auto" action="http://localhost:8888/siteBanqueLaravel/public/indexComptes/creationCompte" method="post">
     {{csrf_field()}}
     <label for="mb-2">type de compte :</label>
     <select class="mb-2" name="typeCompte">
@@ -14,12 +10,12 @@
       <option value="livret+">livret +</option>
       <option value="CompteEtudiant">Compte Etudiant</option>
     </select><br>
-    <input type="text" name="idUser" value="{{session('idUser')}}"><br>
-    <input type="submit" name="" value="creer compte">
+    <input class='d-none' type="text" name="idUser" value="{{session('idUser')}}"><br>
+    <input class='btn validation' type="submit" name="" value="creer compte">
   </form>
-  <form class="mr-5" action="http://localhost:8888/siteBanqueLaravel/public/" method="post">
+  <form class="m-auto" action="http://localhost:8888/siteBanqueLaravel/public/" method="post">
     {{csrf_field()}}
-    <input type="submit" name="" value="Deconnexion">
+    <input class='btn validation' type="submit" name="" value="Deconnexion">
   </form>
 </section>
 @stop
@@ -29,27 +25,24 @@
 <section class='d-flex flex-wrap justify-content-around'>
     @if($comptes)
       @foreach($comptes as $compte)
-        <article class="card p-5 text-center">
+        <article class="card p-5 text-center m-3 compteIndex @if($compte->credit < 0)
+          bg-danger
+        @else
+          bg-success
+        @endif">
           <h5>{{$compte->type_account}}</h5>
           <p>{{$compte->owner}}</p>
-          <p>reserve : {{$compte->credit}}</p>
-          <form class="" action="" method="post">
+          <label for="">Reserve :</label>
+          <p class='creditIndex'>{{$compte->credit}}</p>
+
+          <!-- Voir detail Compte -->
+          <form class="" action="http://localhost:8888/siteBanqueLaravel/public/detailCompte" method="post">
             {{csrf_field()}}
             <input type="text" class='d-none' name="idCompte" value="{{$compte->id}}">
-            <input type="submit" class='btn' name="" value="detail compte">
-          </form>
-          <form class="mt-2" action="" method="post">
-            {{csrf_field()}}
-            <input class='d-none' type="text" name="idCompte" value="{{$compte->id}}">
-            <input type="submit" class='btn' name="" value="supprimer">
+            <input type="submit" class='btn validation' name="" value="detail compte">
           </form>
         </article>
       @endforeach
-    @endif
-    @if(empty($comptes))
-      <section class='machin'>
-        <h2>pas de compte</h2>
-      </section>
     @endif
 </section>
 @stop
