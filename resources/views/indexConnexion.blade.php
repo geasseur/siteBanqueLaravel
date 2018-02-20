@@ -1,9 +1,9 @@
 @extends('master')
+@section('content')
 <section>
   <img class="mySlides w3-animate-left" src="image/magasin Resized.jpg">
   <img class="mySlides w3-animate-left" src="image/voiture Resized.jpg">
 </section>
-@section('content')
 <article>
   {!!$errors->first('pseudoConnexion', '<p class="error-msg text-center error">
       :message
