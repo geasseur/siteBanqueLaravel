@@ -9,7 +9,7 @@ Si vous utilisez mamp, il faudra surement renommer le http://localhost:8888/site
 Si vous utilisez php serve, il faudra passer de http://localhost:8888/siteBanqueLaravel/public/ à http://localhost:8888/.
 
 
-Si le fichier banque.sql à bien été importé, tout devrais fonctionner après ça.
+Si le fichier banque.sql à bien été importé, ainsi que le dossier vendor(qui contient le framework lui même et n'est donc pas sur github), tout devrais fonctionner après ça.
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
