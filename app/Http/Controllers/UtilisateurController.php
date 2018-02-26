@@ -20,7 +20,7 @@ class UtilisateurController extends Controller
 
       if ($User) {
         Session::put('error',"Ce nom d'utilisateur existe déjà");
-        return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/");
+        return redirect()->route('utilisateur.returnConnexionPage');
       }
       else {
         Utilisateur::create([
@@ -29,7 +29,7 @@ class UtilisateurController extends Controller
           'mail'=>request('mailCreation')
         ]);
         Session::put('error','votre compte a été crée avec succès');
-        return Redirect::to('http://localhost:8888/siteBanqueLaravel/public/');
+        return redirect()->route('utilisateur.returnConnexionPage');
       }
     }
 
@@ -42,7 +42,7 @@ class UtilisateurController extends Controller
       //dump($testPassword);
       if (!$testPassword) {
         Session::put('error','utilisateur inconnu');
-        return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/");
+        return redirect()->route('utilisateur.connexionPage');
       }
       // vérification du mot de passe donnée à partir du mot de passe récupéré précédemment
       else {
@@ -50,11 +50,11 @@ class UtilisateurController extends Controller
           //stockage du pseudo dans une variable de session
           Session::put('pseudo',request('pseudoConnexion'));
           //redirection vers la page index
-          return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/indexComptes");
+          return redirect()->route('compte.indexComptesGet');
         }
         else {
           Session::put('error','Le mot de passe est incorrect');
-          return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/");
+          return redirect()->route('utilisateur.connexionPage');
         }
       }
     }

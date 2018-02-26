@@ -17,11 +17,6 @@
 
     </head>
     <body class=''>
-      <script type="text/javascript">
-        function click(){
-          alert('merde');
-        }
-      </script>
       @if(session('error'))
         <p class='text-center error' onclick="$(document).ready(function(){
           $('.error').hide();

@@ -31,7 +31,7 @@
   <section class='d-flex justify-content-around flex-wrap'>
 
     <!-- Ajouter Argent compte Courant -->
-    <form class="m-2 text-center p-4 card d-flex flex-column justify-content-around col-10 col-md-5 col-lg-3" action="http://localhost:8888/siteBanqueLaravel/public/detailCompte/ajoutArgent" method="post">
+    <form class="m-2 text-center p-4 card d-flex flex-column justify-content-around col-10 col-md-5 col-lg-3" action="{!! URL::route('compte.addMoney') !!}" method="post">
       <h5>Effectuer un dépot</h5>
       {{csrf_field()}}
       <label for="">Sommes à déposer :</label>
@@ -41,7 +41,7 @@
     </form>
 
     <!-- Transfert Argent à un de ses comptes -->
-    <form class="m-2 text-center p-4 card col-10 col-md-5 col-lg-3" action="http://localhost:8888/siteBanqueLaravel/public/detailCompte/transfertSoi" method="post">
+    <form class="m-2 text-center p-4 card col-10 col-md-5 col-lg-3" action="{!! URL::route('compte.transfertSoi') !!}" method="post">
       <h5>Virement à un des ses comptes</h5>
       <input class='d-none' type="text" name="idCompte" value="{{$compte->id}}">
       <label for="">Compte :</label>
@@ -56,7 +56,7 @@
     </form>
 
     <!-- Créer lien entre ce compte et un utilisateur -->
-    <form class="m-2 text-center card p-4 col-10 col-md-5 col-lg-3" action="http://localhost:8888/siteBanqueLaravel/public/detailCompte/linkAccount" method="post">
+    <form class="m-2 text-center card p-4 col-10 col-md-5 col-lg-3" action="{!! URL::route('compte.newLink') !!}" method="post">
       {{csrf_field()}}
       <h5>recherche d'un destinataire</h5>
       <input class='d-none' type="text" name="idCompte" value="{{$compte->id}}"><br>
@@ -66,7 +66,7 @@
     </form>
 
     <!-- Transfert Argent vers un compte tier -->
-    <form class="m-2 text-center p-4 card col-10 col-md-5 col-lg-3" action="http://localhost:8888/siteBanqueLaravel/public/detailCompte/TransfertAutre" method="post">
+    <form class="m-2 text-center p-4 card col-10 col-md-5 col-lg-3" action="{!! URL::route('compte.transfertOtherMoney') !!}" method="post">
       {{csrf_field()}}
       <h5>Virement à un compte tier</h5>
       <input class='d-none' type="text" name="idCompte" value="{{$compte->id}}">
@@ -83,14 +83,15 @@
       <input placeholder="montant en chiffres" type="text" name="moneyForOther" value=""><br>
       <input class='btn validation' type="submit" name="forOther" value="effectuer Virement">
     </form>
+
   </section>
 </section>
-<a class='btn validation col-6 col-md-2 m-3 retour' href="http://localhost:8888/siteBanqueLaravel/public/indexComptes">retour index</a>
+<a class='btn validation col-6 col-md-2 m-3 retour' href="{!! URL::route('compte.indexComptesGet') !!}">retour index</a>
 @stop
 
 @section('footer')
 <!-- effacer compte courant -->
-<form class="bg-danger m-auto text-center p-4 card col-10 col-md-5 col-lg-3" action="http://localhost:8888/siteBanqueLaravel/public/detailCompte/effacerCompte" method="post">
+<form class="bg-danger m-auto text-center p-4 card col-10 col-md-5 col-lg-3" action="{!! URL::route('compte.deleteAccountDetail') !!}" method="post">
   {{csrf_field()}}
   <h5>suppression du compte</h5>
   <input class='d-none' type="text" name="idCompte" value="{{$compte->id}}">
