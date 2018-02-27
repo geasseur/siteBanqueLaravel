@@ -8,7 +8,7 @@
   {!!$errors->first('pseudoConnexion', '<p class="error-msg text-center error">
       :message
     </p>')!!}
-  {!!$errors->first('passwordConnexion', '<p class="error-msg text-center">
+  {!!$errors->first('passwordConnexion', '<p class="error-msg text-center error">
       :message
     </p>')!!}
     {!!$errors->first('pseudoCreation', '<p class="error-msg text-center error">
@@ -28,7 +28,7 @@
     {{csrf_field()}}
     <input type="text" name="pseudoConnexion" placeholder="entrez votre nom" value="{{old('pseudoConnexion')}}">
     <input type="password" name="passwordConnexion" placeholder="entrez votre mot de passe" value="{{old('passwordConnexion')}}">
-    <input class='btn validation' type="submit" name="" value="connexion">
+    <input class='btn validation' type="submit" name="connexion" value="connexion">
   </form>
 
   <form class="mt-2 d-flex flex-column col-10 col-md-4 card" action="{!! URL::route('utilisateur.createUser') !!}" method="post">

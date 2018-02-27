@@ -7,21 +7,14 @@ Route::get('/', function(){
   return view('indexConnexion');
 })->name('utilisateur.connexionPage');
 
-Route::post('/', function(){
-  if (session('pseudo')) {
-    Session::forget('pseudo');
-    Session::forget('otherComptes');
-  }
-  return view('indexConnexion');
-})->name('utilisateur.returnConnexionPage');
+Route::post('/deco', 'UtilisateurController@deconnexion' )->name('utilisateur.returnConnexionPage');
 
 // Route::get('/', function() {
 //   dd(App::environment());
 // });
 
 //test connexion de l'utilisateur
-Route::post('/testConnexion', 'UtilisateurController@Connexion')->name('utilisateur.connexion');
-//Route::get('/indexComptes', 'CompteController@displayAccounts')->name('compte.diplay-account');
+Route::post('/testConnexion', 'UtilisateurController@connexion')->name('utilisateur.connexion');
 
 //Creation compte utilisateur
 Route::post('/creationUser', 'UtilisateurController@createUser')->name('utilisateur.createUser');

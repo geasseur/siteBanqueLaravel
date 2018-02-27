@@ -8,4 +8,5 @@ class Utilisateur extends Model
 {
     public $timestamps = false;
     public $fillable = ['pseudo', 'password', 'mail'];
+
 }

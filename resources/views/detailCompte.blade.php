@@ -35,7 +35,7 @@
       <h5>Effectuer un dépot</h5>
       {{csrf_field()}}
       <label for="">Sommes à déposer :</label>
-      <input type="text" name="idCompte" value="{{$compte->id}}">
+      <input class='d-none' type="text" name="idCompte" value="{{$compte->id}}">
       <input placeholder="montant en chiffres" type="text" name="newMoney" value=""><br>
       <input class='btn validation' type="submit" name="" value="effectuer depot">
     </form>
