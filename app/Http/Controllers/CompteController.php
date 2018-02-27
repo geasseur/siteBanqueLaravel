@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Compte;
+use App\Services\ServiceCompte;
 class CompteController extends Controller
 {
   public function displayAccounts(){
@@ -17,8 +18,6 @@ class CompteController extends Controller
      $comptes = Compte::all()->where('idUser', $idUserRecup->first()->id);
      //l'id de l'utilisateur stocké dans une variable de session
      Session::put('idUser',$idUserRecup->first()->id);
-     // dump(session('idUser'));
-     // dump(session('pseudo'));
      //affichage de la vue avec envois des variables
      return view('index', compact('idUser','comptes'));
   }
@@ -48,14 +47,7 @@ class CompteController extends Controller
       return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/indexComptes");
     }
     else {
-      $owner = DB::table('Utilisateurs')->where('id',request('idUser'))->first()->pseudo;
-      dump($owner);
-      Compte::create([
-        'idUser'=>request('idUser'),
-        'type_account'=>request('typeCompte'),
-        'owner'=>$owner,
-        'credit'=>0.93
-      ]);
+      ServiceCompte::createAccountService(request('idUser'), request('typeCompte'));
       return Redirect::to("http://localhost:8888/siteBanqueLaravel/public/indexComptes");
     }
   }
@@ -74,16 +66,6 @@ class CompteController extends Controller
     }
   }
 
-  //fonction pour ajouter argent sur son compte
-  // public function addMoney(Request $request){
-  //   $this->validate($request, ['newMoney'=>'required|numeric'],['newMoney.required'=>'vous devez rentrer une somme', 'newMoney.numeric '=> 'Vous devez ne rentrer que des chiffres']);
-  //   dump(request('idCompte'));
-  //   $credit = DB::table('Comptes')->where('id',request('idCompte'))->first()->credit;
-  //   $credit += request('newMoney');
-  //   DB::table('Comptes')->where('id',request('idCompte'))->update(['credit' => $credit]);
-  //   return redirect()->action('CompteController@displayAccount', ['idCompte' => request('idCompte')]);
-  // }
-
   public function addMoney(){
     if (empty(request('newMoney'))) {
       session::put('error','vous devez rentrer une somme');
@@ -94,42 +76,10 @@ class CompteController extends Controller
       return redirect()->action('CompteController@displayAccount', ['idCompte' => request('idCompte')]);
     }
     else {
-      $credit = DB::table('Comptes')->where('id',request('idCompte'))->first()->credit;
-      $credit += request('newMoney');
-      DB::table('Comptes')->where('id',request('idCompte'))->update(['credit' => $credit]);
+      ServiceCompte::addMoneyService(request('idCompte'), request('newMoney'));
       return redirect()->action('CompteController@displayAccount', ['idCompte' => request('idCompte')]);
     }
-    dump(request('idCompte'));
   }
-
-  //fonction pour transferer de l'argent à l'un de ses comptes perso
-  // public function transfertMoney(Request $request){
-  //   if (request('forMe')) {
-  //     $this->validate($request, ['moneyForMe'=>'required|numeric'],['moneyForMe.required'=>'vous devez rentrer une somme', 'moneyForMe.numeric '=> "Vous devez ne rentrer que des chiffres"]);
-  //     $envoyeur = DB::table('Comptes')->where('id',request('idCompte'))->first()->credit;
-  //     $destinataire = DB::table('Comptes')->where('id',request('idDestinataire'))->first()->credit;
-  //     dump($envoyeur,$destinataire);
-  //     $envoyeur -= request('moneyForMe');
-  //     $destinataire += request('moneyForMe');
-  //     dump($envoyeur,$destinataire);
-  //     DB::table('Comptes')->where('id',request('idCompte'))->update(['credit' => $envoyeur]);
-  //     DB::table('Comptes')->where('id',request('idDestinataire'))->update(['credit' => $destinataire]);
-  //     return redirect()->action(
-  //       'CompteController@displayAccount', ['idCompte' => request('idCompte')]);
-  //   }
-  //   else {
-  //     $this->validate($request, ['idDestinataire'=>'required','moneyForOther'=>'required|numeric'],['idDestinataire.required'=>'vous devez sélectionner le compte d\'une personne','moneyForOther.required'=>'vous devez rentrer une somme', 'moneyForOther.numeric '=> "Vous devez ne rentrer que des chiffres"]);
-  //     $envoyeur = DB::table('Comptes')->where('id',request('idCompte'))->first()->credit;
-  //     $destinataire = DB::table('Comptes')->where('id',request('idDestinataire'))->first()->credit;
-  //     $envoyeur -= request('moneyForOther');
-  //     $destinataire += request('moneyForOther');
-  //     dump($envoyeur,$destinataire);
-  //     DB::table('Comptes')->where('id',request('idCompte'))->update(['credit' => $envoyeur]);
-  //     DB::table('Comptes')->where('id',request('idDestinataire'))->update(['credit' => $destinataire]);
-  //     return redirect()->action(
-  //       'CompteController@displayAccount', ['idCompte' => request('idCompte')]);
-  //   }
-  // }
 
   public function transfertMoney(Request $request){
     //Partie pour le formulaire de transfert entre les comptes du même utilisateur
@@ -143,14 +93,7 @@ class CompteController extends Controller
         return redirect()->action('CompteController@displayAccount', ['idCompte' => request('idCompte')]);
       }
       else {
-        $envoyeur = DB::table('Comptes')->where('id',request('idCompte'))->first()->credit;
-        $destinataire = DB::table('Comptes')->where('id',request('idDestinataire'))->first()->credit;
-        dump($envoyeur,$destinataire);
-        $envoyeur -= request('moneyForMe');
-        $destinataire += request('moneyForMe');
-        dump($envoyeur,$destinataire);
-        DB::table('Comptes')->where('id',request('idCompte'))->update(['credit' => $envoyeur]);
-        DB::table('Comptes')->where('id',request('idDestinataire'))->update(['credit' => $destinataire]);
+        ServiceCompte::transfertMoneyService(request('idCompte'), request('idDestinataire'), request('moneyForMe'));
         return redirect()->action(
           'CompteController@displayAccount', ['idCompte' => request('idCompte')]);
       }
@@ -170,43 +113,12 @@ class CompteController extends Controller
         return redirect()->action('CompteController@displayAccount', ['idCompte' => request('idCompte')]);
       }
       else {
-        $envoyeur = DB::table('Comptes')->where('id',request('idCompte'))->first()->credit;
-        $destinataire = DB::table('Comptes')->where('id',request('idDestinataire'))->first()->credit;
-        $envoyeur -= request('moneyForOther');
-        $destinataire += request('moneyForOther');
-        dump($envoyeur,$destinataire);
-        DB::table('Comptes')->where('id',request('idCompte'))->update(['credit' => $envoyeur]);
-        DB::table('Comptes')->where('id',request('idDestinataire'))->update(['credit' => $destinataire]);
+        ServiceCompte::transfertMoneyService(request('idCompte'), request('idDestinataire'), request('moneyForOther'));
         return redirect()->action(
           'CompteController@displayAccount', ['idCompte' => request('idCompte')]);
         }
       }
   }
-
-  // public function linkAccount(Request $request){
-  //   $this->validate($request, ['nameUser'=>'required'],['nameUser.required'=>'il faut rentrer un nom']);
-  //   //Verifier si l'utilisateur et le compte cherché ne sont pas les même
-  //   if (request('nameUser') != request('owner')) {
-  //     $otherComptes = DB::table('Comptes')->where('owner', request('nameUser'))->get();
-  //   }
-  //   else {
-  //     Session::put('error' ,"vous ne pouvez pas mettre votre propre nom");
-  //     return redirect()->action(
-  //     'CompteController@displayAccount', ['idCompte' => request('idCompte')]);
-  //   }
-  //   //Verifie si il trouve un utilisateur portant le nom cherché
-  //   if ($otherComptes->isEmpty()) {
-  //     Session::put('error' ,"il n'y a pas d'utilisateur qui porte ce nom");
-  //     return redirect()->action(
-  //       'CompteController@displayAccount', ['idCompte' => request('idCompte')]);
-  //   }
-  //   else {
-  //     Session::put('trouve', 'trouver');
-  //     Session::forget('otherComptes');
-  //     Session::put('otherComptes',$otherComptes);
-  //     return redirect()->action('CompteController@displayAccount', ['idCompte' => request('idCompte')]);
-  //   }
-  // }
 
   public function linkAccount(){
     if (empty(request('nameUser'))) {

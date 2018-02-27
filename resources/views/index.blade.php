@@ -2,7 +2,7 @@
 
 @section('header')
 <section class='d-flex justify-content-between align-items-center flex-wrap col-10 m-auto'>
-  <form class="d-flex flex-column justify-content-around align-items-center m-auto" action="http://localhost:8888/siteBanqueLaravel/public/indexComptes/creationCompte" method="post">
+  <form class="d-flex flex-column justify-content-around align-items-center m-auto" action="{!! URL::route('compte.createAccount') !!}" method="post">
     {{csrf_field()}}
     <label for="mb-2">type de compte :</label>
     <select class="mb-2" name="typeCompte">
@@ -13,7 +13,7 @@
     <input class='d-none' type="text" name="idUser" value="{{session('idUser')}}"><br>
     <input class='btn validation' type="submit" name="" value="creer compte">
   </form>
-  <form class="m-auto" action="http://localhost:8888/siteBanqueLaravel/public/" method="post">
+  <form class="m-auto" action="{!! URL::route('utilisateur.returnConnexionPage') !!}" method="post">
     {{csrf_field()}}
     <input class='btn validation' type="submit" name="" value="Deconnexion">
   </form>
@@ -36,7 +36,7 @@
           <p class='creditIndex'>{{$compte->credit}}</p>
 
           <!-- Voir detail Compte -->
-          <form class="" action="http://localhost:8888/siteBanqueLaravel/public/detailCompte" method="post">
+          <form class="" action="{!! URL::route('compte.detailPage') !!}" method="post">
             {{csrf_field()}}
             <input type="text" class='d-none' name="idCompte" value="{{$compte->id}}">
             <input type="submit" class='btn validation' name="" value="detail compte">

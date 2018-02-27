@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-        <title>compte du porc</title>
+        <title>compte du porc {{session('pseudo')}}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -17,11 +17,6 @@
 
     </head>
     <body class=''>
-      <script type="text/javascript">
-        function click(){
-          alert('merde');
-        }
-      </script>
       @if(session('error'))
         <p class='text-center error' onclick="$(document).ready(function(){
           $('.error').hide();
