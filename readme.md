@@ -1,14 +1,5 @@
 # Site Bancaire sous Laravel
 
-Pour faire fonctionner le site en local, il faudra renommer les actions des formulaires et les redirections des controlleurs.
-
-
-Si vous utilisez mamp, il faudra surement renommer le http://localhost:8888/siteBanqueLaravel/public/ en http://localhost:8888/siteBanqueLaravel-master/public/ du fait du clonage par github.
-
-
-Si vous utilisez php serve, il faudra passer de http://localhost:8888/siteBanqueLaravel/public/ à http://localhost:8888/.
-
-
 Si le fichier banque.sql à bien été importé, ainsi que le dossier vendor(qui contient le framework lui même et n'est donc pas sur github), tout devrais fonctionner après ça.
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
