@@ -11,16 +11,3 @@ function carousel() {
     x[slideIndex-1].style.display = "block";
     setTimeout(carousel, 2000); // Change image every 2 seconds
 }
-
-  // if (window.location.href == 'http://localhost:8888/siteBanqueLaravel/public/' || window.location.href == 'http://localhost:8888/siteBanqueLaravel/public/deco' ) {
-    if (window.matchMedia("(max-width: 1024px)").matches) {
-      $(document).ready(function(){
-        $(".mySlides").hide();
-      });
-    }
-    else {
-      $(document).ready(function(){
-        carousel();
-      });
-    }
-  //}
