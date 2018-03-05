@@ -40,4 +40,18 @@
   </form>
 
 </section>
+<script type="text/javascript">
+if (window.location.href == '{!! URL::route('utilisateur.connexionPage') !!}' || window.location.href == '{!! URL::route('utilisateur.returnConnexionPage') !!}' ) {
+  if (window.matchMedia("(max-width: 1024px)").matches) {
+    $(document).ready(function(){
+      $(".mySlides").hide();
+    });
+  }
+  else {
+    $(document).ready(function(){
+      carousel();
+    });
+  }
+}
+</script>
 @stop
