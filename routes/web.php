@@ -1,13 +1,13 @@
 <?php
 
 //ROUTEUR
+//deconnexion
+Route::post('/', 'UtilisateurController@deconnexion' )->name('utilisateur.returnConnexionPage');
 
 //ouverture du site
 Route::get('/', function(){
   return view('indexConnexion');
 })->name('utilisateur.connexionPage');
-
-Route::post('/deco', 'UtilisateurController@deconnexion' )->name('utilisateur.returnConnexionPage');
 
 // Route::get('/', function() {
 //   dd(App::environment());
@@ -29,25 +29,25 @@ Route::post('/indexComptes', 'CompteController@displayAccounts')->name('compte.i
 Route::post('/indexComptes/creationCompte','CompteController@newAccount')->name('compte.createAccount');
 
 //Effacer un compte depuis index
-Route::post('/effacerCompte','CompteController@deleteAccount')->name('compte.deleteAccount');
+Route::post('/effacerCompte/{id}','CompteController@deleteAccount')->name('compte.deleteAccount');
 
 //Voir page Detail
-Route::post('/detailCompte','CompteController@displayAccount')->name('compte.detailPage');
+Route::post('/detailCompte/{id}','CompteController@displayAccount')->name('compte.detailPage');
 
 //retour page detail
-Route::get('/detailCompte','CompteController@displayAccount')->name('compte.returnDetailPage');
+Route::get('/detailCompte/{id}','CompteController@displayAccount')->name('compte.returnDetailPage');
 
 //Effacer compte depuis page detail
-Route::Post('/detailCompte/effacerCompte','CompteController@deleteAccount')->name('compte.deleteAccountDetail');
+Route::Post('/detailCompte/effacerCompte/{id}','CompteController@deleteAccount')->name('compte.deleteAccountDetail');
 
 //Ajouter Argent sur le compte courant
-Route::post('/detailCompte/ajoutArgent','CompteController@addMoney')->name('compte.addMoney');
+Route::post('/detailCompte/ajoutArgent/{id}','CompteController@addMoney')->name('compte.addMoney');
 
 //transferet argent à l'un de ses compte
-Route::post('/detailCompte/transfertSoi','CompteController@transfertMoney')->name('compte.transfertSoi');
+Route::post('/detailCompte/transfertSoi/{id}','CompteController@transfertMoneyMyself')->name('compte.transfertSoi');
 
 // créer lien vers utilisateur
-Route::post('/detailCompte/linkAccount','CompteController@linkAccount')->name('compte.newLink');
+Route::post('/detailCompte/linkAccount/{owner}','CompteController@linkAccount')->name('compte.newLink');
 
 //transfert à un autre utilisateur
-Route::post('detailCompte/TransfertAutre','CompteController@transfertMoney')->name('compte.transfertOtherMoney');
+Route::post('detailCompte/TransfertAutre/{id}','CompteController@transfertMoneyOther')->name('compte.transfertOtherMoney');
