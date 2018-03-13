@@ -11,7 +11,7 @@
       <option value="CompteEtudiant">Compte Etudiant</option>
     </select><br>
     <input class='d-none' type="text" name="idUser" value="{{session('idUser')}}"><br>
-    <input class='btn validation' type="submit" name="" value="creer compte">
+    <input class='btn validation' type="submit" name="newAccount" value="creer compte">
   </form>
   <form class="m-auto" action="{!! URL::route('utilisateur.returnConnexionPage') !!}" method="post">
     {{csrf_field()}}
@@ -36,7 +36,7 @@
           <p class='creditIndex'>{{$compte->credit}}</p>
 
           <!-- Voir detail Compte -->
-          <form class="" action="{!! URL::route('compte.detailPage') !!}" method="post">
+          <form class="" action="{{ route('compte.detailPage',['id'=>$compte->id]) }}" method="post">
             {{csrf_field()}}
             <input type="text" class='d-none' name="idCompte" value="{{$compte->id}}">
             <input type="submit" class='btn validation' name="" value="detail compte">
