@@ -21,20 +21,24 @@
         :message
       </span>')!!}
     <input type="password" name="passwordConnexion" placeholder="entrez votre mot de passe" value="{{old('passwordConnexion')}}">
+
     {!!$errors->first('passwordConnexion', '<span class="error-msg ">
         :message
       </span>')!!}
+
     <input class='btn validation' type="submit" name="connexion" value="connexion">
   </form>
 
   <form class="mt-2 d-flex flex-column col-10 col-md-4 card" action="{!! URL::route('utilisateur.createUser') !!}" method="post">
     {{csrf_field()}}
     <input type="text" name="pseudoCreation" placeholder="donnez un nom" value="{{old('pseudoCreation')}}">
+
     {!!$errors->first('pseudoCreation', '<span class="error-msg ">
         :message
       </span>')!!}
+
     <input type="password" name="passwordCreation" placeholder="rentrez un mot de passe" value="{{old('passwordCreation')}}">
-    {!!$errors->first('pseudoCreation', '<span class="error-msg ">
+    {!!$errors->first('passwordCreation', '<span class="error-msg ">
         :message
       </span>')!!}
     <input type="text" name="mailCreation" placeholder="rentrez votre adresse mail" value="{{old('mailCreation')}}">
@@ -46,7 +50,7 @@
 
 </section>
 <script type="text/javascript">
-if (window.location.href == '{!! URL::route('utilisateur.connexionPage') !!}' || window.location.href == '{!! URL::route('utilisateur.returnConnexionPage') !!}' ) {
+// if (window.location.href == '{!! URL::route('utilisateur.connexionPage') !!}' || window.location.href == '{!! URL::route('utilisateur.returnConnexionPage') !!}' ) {
   if (window.matchMedia("(max-width: 1024px)").matches) {
     $(document).ready(function(){
       $(".mySlides").hide();
@@ -57,6 +61,6 @@ if (window.location.href == '{!! URL::route('utilisateur.connexionPage') !!}' ||
       carousel();
     });
   }
-}
+//}
 </script>
 @stop

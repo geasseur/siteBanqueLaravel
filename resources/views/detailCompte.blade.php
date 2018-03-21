@@ -69,7 +69,7 @@
     </form>
 
     <!-- Créer lien entre ce compte et un utilisateur -->
-    <form class="m-2 text-center card p-4 col-10 col-md-5 col-lg-3" action="{{ route('compte.newLink',['owner'=>$compte->owner])}}" method="post">
+    <form class="m-2 text-center card p-4 col-10 col-md-5 col-lg-3" action="{{ route('compte.newLink', ['id'=>$compte->id, 'owner'=>$compte->owner]) }}" method="post">
       {{csrf_field()}}
       <h5>recherche d'un destinataire</h5>
       <!-- <input class='d-none' type="text" name="idCompte" value="{{$compte->id}}"><br>
@@ -115,9 +115,12 @@
 <form class="bg-danger m-auto text-center p-4 card col-10 col-md-5 col-lg-3" action="{{ route('compte.deleteAccountDetail', ['id'=>$compte->id]) }}" method="post">
   {{csrf_field()}}
   <h5>suppression du compte</h5>
+  {!!$errors->first('validationDelete', '<span class="error-msg ">
+      :message
+    </span>')!!}
   <label for="">êtes vous sûr de vouloir <br> supprimer ce comptes? :</label><br>
   <label for="">oui :</label>
-  <input class='m-auto' type="checkbox" name="validationDelete" value="oui">
+  <input class='m-auto' type="checkbox" name="validationDelete" value="1">
   <input class='btn validation' type="submit" name="" value="Effacer le compte">
 </form>
 @stop

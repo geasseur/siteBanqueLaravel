@@ -47,7 +47,7 @@ Route::post('/detailCompte/ajoutArgent/{id}','CompteController@addMoney')->name(
 Route::post('/detailCompte/transfertSoi/{id}','CompteController@transfertMoneyMyself')->name('compte.transfertSoi');
 
 // créer lien vers utilisateur
-Route::post('/detailCompte/linkAccount/{owner}','CompteController@linkAccount')->name('compte.newLink');
+Route::post('/detailCompte/linkAccount/{id}/{owner}','CompteController@linkAccount')->name('compte.newLink');
 
 //transfert à un autre utilisateur
 Route::post('detailCompte/TransfertAutre/{id}','CompteController@transfertMoneyOther')->name('compte.transfertOtherMoney');

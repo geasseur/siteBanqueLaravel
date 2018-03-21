@@ -23,18 +23,15 @@ class LinkFormRequest extends FormRequest
      */
     public function rules()
     {
-      $owner = $this->route('owner');
-      dd($owner, request('nameUser'));
-
-        return [
-            'nameUser'=>'bail|required|different :'.$owner.''
-        ];
+      //$owner = $this->route('owner');
+      return [
+          'nameUser'=>'bail|required'
+      ];
     }
 
     public function messages(){
         return[
-            'nameUser.required'=>'vous devez rentrer un nom utilisateur',
-            'nameUser.different'=>'vous ne pouvez pas rentrer votre nom'
+            'nameUser.required'=>'vous devez rentrer un nom utilisateur'
         ];
     }
 }
