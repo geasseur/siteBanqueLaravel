@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Http\Requests\deleteAccountFormRequest;
+use App\Http\Requests\deleteAccountFormRequest;
 use App\Http\Requests\TransfertMoneyForMeFormRequest;
 use App\Http\Requests\TransfertMoneyForOtherFormRequest;
 use App\Http\Requests\LinkFormRequest;
@@ -34,13 +34,6 @@ class CompteController extends Controller
       $compte = DB::table('Comptes')->where('id', $id)->first();
       //retourne la page détail en envoyant les variables nécessaire
       return view('detailCompte')->with(compact(['otherSelfComptes','compte']));
-    // }
-    // else {
-    //   $otherSelfComptes = DB::table('Comptes')->where('owner',session('pseudo'))->where('id','!=',session('idCompte'))->get();
-    //   $compte = DB::table('Comptes')->where('id', session('idCompte'))->first();
-    //   //dd(session('idCompte'));
-    //   return view('detailCompte')->with('compte', $compte)->with('otherSelfComptes',$otherSelfComptes);
-    // }
   }
 
   public function newAccount(){
@@ -57,23 +50,9 @@ class CompteController extends Controller
   }
 
   //test delete avec formRequest
-  // public function deleteAccount(deleteAccountFormRequest $request){
-  //   $compte = DB::table('Comptes')->where('id', '=', request('idCompte'))->delete();
-  //   $idCompte = request('idCompte');
-  //   dd($idCompte);
-  //   return redirect()->route('compte.indexComptesGet');
-  // }
-
-  public function deleteAccount($id){
-    if (request('validationDelete') == 'oui') {
-      $compte = DB::table('Comptes')->where('id', '=', $id)->delete();
-      return redirect()->route('compte.indexComptesGet');
-    }
-    else {
-      Session::put('error','vous ne pouvez pas effacer ce compte, car vous n\'avez pas cochez le bouton oui');
-      return redirect()->action(
-    'CompteController@displayAccount', ['id' => $id]);
-    }
+  public function deleteAccount(deleteAccountFormRequest $request, $id){
+    $compte = DB::table('Comptes')->where('id', '=', $id)->delete();
+    return redirect()->route('compte.indexComptesGet');
   }
 
   public function addMoney(NewMoneyFormRequest $request, $id){
@@ -94,20 +73,16 @@ class CompteController extends Controller
       'CompteController@displayAccount', ['id' => $id]);
   }
 
-  public function linkAccount(LinkFormRequest $request, $owner){
-    // if (empty(request('nameUser'))) {
-    //   session::put('error','vous devez rentrer un nom');
-    //   return redirect()->action('CompteController@displayAccount', ['id' => $id]);
-    // }
+  public function linkAccount(LinkFormRequest $request, $id, $owner){
     // //Verifier si l'utilisateur et le compte cherché ne sont pas les même
-    // if (request('nameUser') != request('owner')) {
-    //   $otherComptes = DB::table('Comptes')->where('owner', request('nameUser'))->get();
-    // }
-    // else {
-    //   Session::put('error' ,"vous ne pouvez pas mettre votre propre nom");
-    //   return redirect()->action(
-    //   'CompteController@displayAccount', ['id' => $id ]);
-    // }
+    if (request('nameUser') != $owner) {
+      $otherComptes = DB::table('Comptes')->where('owner', request('nameUser'))->get();
+    }
+    else {
+      Session::put('error' ,"vous ne pouvez pas mettre votre propre nom");
+      return redirect()->action(
+      'CompteController@displayAccount', ['id' => $id ]);
+    }
     //Verifie si il trouve un utilisateur portant le nom cherché
     $otherComptes = DB::table('Comptes')->where('owner', request('nameUser'))->get();
     if ($otherComptes->isEmpty()) {

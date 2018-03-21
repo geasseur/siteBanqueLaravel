@@ -13,8 +13,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="css/style.css">
-        <script type="text/javascript" src="js/style.js"></script>
-
+        <link rel="stylesheet" href="{{URL::asset('css/style.css')}}">
+        <!-- <script type="text/javascript" src="js/style.js"></script> -->
+        <script type="text/javascript" src="{{URL::asset('js/style.js')}}"></script>
     </head>
     <body class=''>
       @if(session('error'))

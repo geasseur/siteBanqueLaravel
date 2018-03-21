@@ -23,6 +23,7 @@ class deleteAccountFormRequest extends FormRequest
      */
     public function rules()
     {
+    //  dd(request('validationDelete'));
         return [
             'validationDelete'=>'accepted'
         ];
@@ -32,7 +33,6 @@ class deleteAccountFormRequest extends FormRequest
     {
         return[
             'validationDelete.accepted'=>'vous devez cocher la case oui pour effacer ce compte'
-
       ];
     }
 }
